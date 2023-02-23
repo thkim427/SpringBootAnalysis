@@ -11,6 +11,8 @@ import jakarta.servlet.http.HttpServletResponse;
 //import org.apache.catalina.startup.Tomcat;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServer;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 //import org.springframework.boot.web.servlet.ServletContextInitializer;
 
 import java.io.IOException;
@@ -27,10 +29,12 @@ public class AnalysisApplication {
                 @Override
                 protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
                     //super.service(req, resp);
+                    String name = req.getParameter("name"); // 요청의 매개변수 name을 받음
                     // 응답구성 : 상태코드, 상태값, 컨텐츠타입, 헤더, 바디
                     resp.setStatus(200);
-                    resp.setHeader("Content-Type", "text/plain");
-                    resp.getWriter().println("Hello Servlet"); // Body에 문자열 응답을 주기 위한 writer
+                    //resp.setHeader("Content-Type", "text/plain");
+                    resp.setHeader(HttpHeaders.CONTENT_TYPE, MediaType.TEXT_PLAIN_VALUE); // 오타의 위험, 관리의 편의로 spring에서 제공하는 enum으로 변경
+                    resp.getWriter().println("Hello " + name); // Body에 문자열 응답을 주기 위한 writer
                 }
             }).addMapping("/hello"); // servlet 컨테이너가 요청을 맵핑해줄 url 필요
         }); // servlet container 생성
