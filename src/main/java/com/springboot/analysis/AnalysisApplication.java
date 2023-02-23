@@ -28,6 +28,7 @@ public class AnalysisApplication {
         GenericApplicationContext applicationContext = new GenericApplicationContext();
         // 스프링 컨테이너는 일반적으로 어떤 클래스를 이용해서 bean object를 이용 할것인가 meta 정보를 넣어주는 방식으로 구성
         applicationContext.registerBean(AnalysisController.class); // 일반적으로 bean class 정보만 주는 방식 사용
+        applicationContext.registerBean(SimpleAnalysisService.class); // spring container가 controller 생성시 AnalysisService를 구현한 SimpleAnalysisService를 생성자 매개변수로 주입 (register 순서 상관 없음)
         applicationContext.refresh(); // bean object 생성 및 초기화
 
 
