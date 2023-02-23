@@ -4,12 +4,17 @@ package com.springboot.analysis;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Objects;
+
 // hello 요청을 받으면 응답을 보내는 controller
 // @RestController // html을 통채로 return하지 않고 api 요청에 대한 응답을 body에 특정한 type으로 encoding해서 보내주는 controller
 public class AnalysisController {
     // @GetMapping("/hello") // Get으로 된 web 요청, url path가 hello로 시작하는 url만 받는다.
     public String hello(String name) {
-        return "Hello " + name;
+        SimpleAnalysisService analysisService = new SimpleAnalysisService();
+
+        // 컨트롤러의 중요한 일 : 요청을 검증하는 일 (name이 null인 경우 error 발생)
+        return analysisService.sayHello(Objects.requireNonNull(name));
     }
 }
 
