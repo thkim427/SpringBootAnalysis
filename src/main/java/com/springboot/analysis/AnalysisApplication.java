@@ -12,6 +12,7 @@ import org.apache.catalina.startup.Tomcat;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.server.WebServer;
 import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebApplicationContext;
+import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScans;
@@ -45,6 +46,16 @@ public class AnalysisApplication {
         return new SimpleAnalysisService();
     }*/
 
+    @Bean
+    public ServletWebServerFactory servletWebServerFactory() {
+        return new TomcatServletWebServerFactory();
+    }
+
+    @Bean
+    public DispatcherServlet dispatcherServlet() {
+        return new DispatcherServlet(); // 이용할 Controller를 찾아야 하기 때문에 application context 전달 필요
+    }
+
     public static void main(String[] args) {
         // 스프링 컨테이너를 대표하는 interface = application context : application의 정보 총괄. 어떤 bean 사용할것인가, resource에 접근하는 방법, 내부 event를 전달하고 받는 방법...
         //GenericApplicationContext applicationContext = new GenericApplicationContext();
@@ -54,16 +65,21 @@ public class AnalysisApplication {
             protected void onRefresh() { // GenericWebApplicationContext가 사용중인 onRefresh 메소드를 Override (메소드 기능확장)
                 super.onRefresh();
 
+                ServletWebServerFactory serverFactory = this.getBean(ServletWebServerFactory.class);
+                DispatcherServlet dispatcherServlet = this.getBean(DispatcherServlet.class);
+                // dispatcherServlet.setApplicationContext(this); // dispatcher servlet 등록 시점에 application context를 주입 (ApplicationContextAware Interface)
+
                 // Spring Boot의 설계대로 refresh 작업 시 Dispatcher Servlet 생성
-                TomcatServletWebServerFactory serverFactory = new TomcatServletWebServerFactory();
+                //TomcatServletWebServerFactory serverFactory = new TomcatServletWebServerFactory();
                 WebServer webServer = serverFactory.getWebServer(servletContext -> {
-                    servletContext.addServlet("dispatcherServlet",
-                            new DispatcherServlet(this) // 생성전 확장하는 클래스 내부에서 자기자신을 참조
+                    servletContext.addServlet("dispatcherServlet", dispatcherServlet
+                            //new DispatcherServlet(this) // 생성전 확장하는 클래스 내부에서 자기자신을 참조
                     ).addMapping("/*");
                 });
                 webServer.start();
             }
         };
+
 
         // 스프링 컨테이너는 일반적으로 어떤 클래스를 이용해서 bean object를 이용 할것인가 meta 정보를 넣어주는 방식으로 구성
         //applicationContext.registerBean(AnalysisController.class); // 일반적으로 bean class 정보만 주는 방식 사용
