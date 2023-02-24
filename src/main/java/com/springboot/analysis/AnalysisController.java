@@ -21,11 +21,11 @@ public class AnalysisController implements ApplicationContextAware {
     // @GetMapping("/hello") // Get으로 된 web 요청, url path가 hello로 시작하는 url만 받는다.
 
     private final AnalysisService analysisService; // 재할당 불가 final 이므로 정의할때 초기화 해주거나 생성자에서 초기화 필요
-    private final ApplicationContext applicationContext;
+    //private final ApplicationContext applicationContext;
 
-    public AnalysisController(AnalysisService analysisService, ApplicationContext applicationContext) {
+    public AnalysisController(AnalysisService analysisService/*, ApplicationContext applicationContext*/) {
         this.analysisService = analysisService; // 생성시 parameter로 service를 받아서 멤버 변수에 저장
-        this.applicationContext = applicationContext;
+        //this.applicationContext = applicationContext;
     }
 
     // @RequestMapping(value = "/hello", method = RequestMethod.GET) // GetMapping 만들어지기 전에 사용되던 방식
@@ -41,7 +41,11 @@ public class AnalysisController implements ApplicationContextAware {
         // interface를 중간에 두고 의존관계를 맺고 code level 의존 관계를 제거
 
         // 컨트롤러의 중요한 일 : 요청을 검증하는 일 (name이 null인 경우 error 발생)
-        return analysisService.sayHello(Objects.requireNonNull(name));
+        //return analysisService.sayHello(Objects.requireNonNull(name));
+
+        if(name == null || name.trim().length() == 0) throw new IllegalArgumentException();
+
+        return analysisService.sayHello(name);
     }
 
     @Override
