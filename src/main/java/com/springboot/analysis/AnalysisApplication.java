@@ -60,7 +60,7 @@ public class AnalysisApplication {
         // 스프링 컨테이너를 대표하는 interface = application context : application의 정보 총괄. 어떤 bean 사용할것인가, resource에 접근하는 방법, 내부 event를 전달하고 받는 방법...
         //GenericApplicationContext applicationContext = new GenericApplicationContext();
         //run(AnalysisApplication.class, args);
-        MySpringApplication.run(AnalysisApplication.class, args);
+        SpringApplication.run(AnalysisApplication.class, args);
 
 
         //SpringApplication.run(AnalysisApplication.class, args);
