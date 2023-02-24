@@ -29,8 +29,9 @@ import org.springframework.boot.web.servlet.ServletContextInitializer;
 import java.io.IOException;
 
 //@SpringBootApplication
-@Configuration // Spring Container가 Bean 구성정보를 가지고 있는 Class임을 인식하도록 @Bean Factory Method 사용 시 Class level에 붙여줘야함
-@ComponentScan // Application Context가 이 클래스 부터 하위 패키지의 모든 Component를 찾아서 Bean으로 등록, 의존 Object도 찾아서 생성자 파라미터로 제공, Component 붙은 클래스 모두 체크해야하는 번거로움
+//@Configuration // Spring Container가 Bean 구성정보를 가지고 있는 Class임을 인식하도록 @Bean Factory Method 사용 시 Class level에 붙여줘야함
+//@ComponentScan // Application Context가 이 클래스 부터 하위 패키지의 모든 Component를 찾아서 Bean으로 등록, 의존 Object도 찾아서 생성자 파라미터로 제공, Component 붙은 클래스 모두 체크해야하는 번거로움
+@MySpringBootAnnotation
 public class AnalysisApplication {
     // Spring Bean이 다른 Bean을 의존(사용) 하고 있다면 Spring Container에 구성 정보로 제공해줘야함
     // - 외부 설정파일 이용 (과거의 방식)
@@ -46,7 +47,7 @@ public class AnalysisApplication {
         return new SimpleAnalysisService();
     }*/
 
-    @Bean
+    /*@Bean
     public ServletWebServerFactory servletWebServerFactory() {
         return new TomcatServletWebServerFactory();
     }
@@ -54,7 +55,7 @@ public class AnalysisApplication {
     @Bean
     public DispatcherServlet dispatcherServlet() {
         return new DispatcherServlet(); // 이용할 Controller를 찾아야 하기 때문에 application context 전달 필요
-    }
+    }*/
 
     public static void main(String[] args) {
         // 스프링 컨테이너를 대표하는 interface = application context : application의 정보 총괄. 어떤 bean 사용할것인가, resource에 접근하는 방법, 내부 event를 전달하고 받는 방법...
