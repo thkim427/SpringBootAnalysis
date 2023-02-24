@@ -1,6 +1,7 @@
 // web의 요청을 받아서 결과를 주는 컴포넌트
 package com.springboot.analysis;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Objects;
@@ -9,6 +10,7 @@ import java.util.Objects;
 // @RestController // html을 통채로 return하지 않고 api 요청에 대한 응답을 body에 특정한 type으로 encoding해서 보내주는 controller, Dispatcher Servlet과는 직접 관계는 없음
 //@RequestMapping // Dispatcher Servlet이 Class level의 정보를 찾은 이후 Method level 정보를 추가
 @RequestMapping("/hello")
+@Controller // SpringBoot 3.0부터는 클래스 레벨의 핸들러 감지 대상에 @Controller 어노테이션만이 포함
 public class AnalysisController {
     // @GetMapping("/hello") // Get으로 된 web 요청, url path가 hello로 시작하는 url만 받는다.
 
