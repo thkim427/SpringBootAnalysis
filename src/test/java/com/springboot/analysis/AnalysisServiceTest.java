@@ -12,4 +12,13 @@ public class AnalysisServiceTest {
 
         Assertions.assertThat(ret).isEqualTo("Hello Test");
     }
+
+    @Test
+    void analysisDecorator() {
+        AnalysisDecorator decorator = new AnalysisDecorator(name -> name);
+
+        String ret = decorator.sayHello("Test");
+
+        Assertions.assertThat(ret).isEqualTo("*Test*");
+    }
 }

@@ -2,6 +2,7 @@
 package com.springboot.analysis;
 
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
@@ -23,6 +24,9 @@ public class AnalysisController implements ApplicationContextAware {
     private final AnalysisService analysisService; // 재할당 불가 final 이므로 정의할때 초기화 해주거나 생성자에서 초기화 필요
     //private final ApplicationContext applicationContext;
 
+    // @Autowired 인터페이스를 구현한 객체가 단일 후보일경우 Spring Container가 주입해줌
+    // - 명시적으로 설정파일을 만들어서 controller -> decorator, decorator -> service 주입 xml
+    // - @Primary로 우선 순위를 높여줌
     public AnalysisController(AnalysisService analysisService/*, ApplicationContext applicationContext*/) {
         this.analysisService = analysisService; // 생성시 parameter로 service를 받아서 멤버 변수에 저장
         //this.applicationContext = applicationContext;
