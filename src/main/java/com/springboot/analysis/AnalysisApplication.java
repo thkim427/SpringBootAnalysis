@@ -1,37 +1,12 @@
 package com.springboot.analysis;
 
+import com.springboot.config.MySpringBootApplication;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import jakarta.servlet.ServletContext;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import org.apache.catalina.startup.Tomcat;
-import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
-import org.springframework.boot.web.server.WebServer;
-import org.springframework.boot.web.servlet.context.AnnotationConfigServletWebApplicationContext;
-import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.ComponentScans;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.GenericApplicationContext;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.web.context.support.GenericWebApplicationContext;
-import org.springframework.web.servlet.DispatcherServlet;
-import org.springframework.boot.web.servlet.ServletContextInitializer;
-
-import java.io.IOException;
 
 //@SpringBootApplication
 //@Configuration // Spring Container가 Bean 구성정보를 가지고 있는 Class임을 인식하도록 @Bean Factory Method 사용 시 Class level에 붙여줘야함
 //@ComponentScan // Application Context가 이 클래스 부터 하위 패키지의 모든 Component를 찾아서 Bean으로 등록, 의존 Object도 찾아서 생성자 파라미터로 제공, Component 붙은 클래스 모두 체크해야하는 번거로움
-@MySpringBootAnnotation
+@MySpringBootApplication // application 구성정보의 시작점
 public class AnalysisApplication {
     // Spring Bean이 다른 Bean을 의존(사용) 하고 있다면 Spring Container에 구성 정보로 제공해줘야함
     // - 외부 설정파일 이용 (과거의 방식)
