@@ -11,7 +11,7 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
 
 //@Configuration
 @MyAutoConfiguration
-@Conditional(UndertowWebServerConfig.UndertowCondition.class) // Condition interface 구현한 class 필수
+@Conditional(UndertowWebServerConfig.UndertowCondition.class) // Condition interface 구현한 class 지정 필수
 public class UndertowWebServerConfig {
     @Bean("jettyWebServerFactory") // @Bean을 통해 factory method 만들때 기본 이름은 메소드명 servletWebServerFactory. 이름 충돌 방지를 위해 지정
     public ServletWebServerFactory servletWebServerFactory() {
