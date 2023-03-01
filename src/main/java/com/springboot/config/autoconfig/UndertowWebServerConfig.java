@@ -2,6 +2,7 @@ package com.springboot.config.autoconfig;
 
 import com.springboot.config.ConditionalMyOnClass;
 import com.springboot.config.MyAutoConfiguration;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.web.embedded.undertow.UndertowServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +17,8 @@ import org.springframework.util.ClassUtils;
 //@Conditional(UndertowWebServerConfig.UndertowCondition.class) // Condition interface 구현한 class 지정 필수
 @ConditionalMyOnClass("io.undertow.Undertow")
 public class UndertowWebServerConfig {
-    @Bean("jettyWebServerFactory") // @Bean을 통해 factory method 만들때 기본 이름은 메소드명 servletWebServerFactory. 이름 충돌 방지를 위해 지정
+    @Bean("undertowWebServerFactory") // @Bean을 통해 factory method 만들때 기본 이름은 메소드명 servletWebServerFactory. 이름 충돌 방지를 위해 지정
+    @ConditionalOnMissingBean
     public ServletWebServerFactory servletWebServerFactory() {
         return new UndertowServletWebServerFactory();
     }

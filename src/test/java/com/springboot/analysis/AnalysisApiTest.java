@@ -15,7 +15,7 @@ public class AnalysisApiTest {
         TestRestTemplate rest = new TestRestTemplate(); // RestTemplate은 400, 500 경우 예외를 던짐
 
         ResponseEntity<String> res =
-                rest.getForEntity("http://localhost:8080/hello?name={name}", String.class, "Spring");
+                rest.getForEntity("http://localhost:9090/hello?name={name}", String.class, "Spring");
         // status code 200
         Assertions.assertThat(res.getStatusCode()).isEqualTo(HttpStatus.OK);
         // header(content-type) text/plain
@@ -31,7 +31,7 @@ public class AnalysisApiTest {
         TestRestTemplate rest = new TestRestTemplate(); // RestTemplate은 400, 500 경우 예외를 던짐
 
         ResponseEntity<String> res =
-                rest.getForEntity("http://localhost:8080/hello?name=", String.class);
+                rest.getForEntity("http://localhost:9090/hello?name=", String.class);
         // status code 200
         Assertions.assertThat(res.getStatusCode()).isEqualTo(HttpStatus.INTERNAL_SERVER_ERROR);
 
