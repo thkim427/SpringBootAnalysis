@@ -2,3 +2,4 @@ com.springboot.config.autoconfig.TomcatWebServerConfig
 com.springboot.config.autoconfig.UndertowWebServerConfig
 com.springboot.config.autoconfig.DispatcherServletConfig
 com.springboot.config.autoconfig.PropertyPlaceholderConfig
+com.springboot.config.autoconfig.ServerPropertiesConfig
