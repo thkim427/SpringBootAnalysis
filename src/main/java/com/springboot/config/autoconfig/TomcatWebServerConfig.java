@@ -1,6 +1,7 @@
 package com.springboot.config.autoconfig;
 
 import com.springboot.config.ConditionalMyOnClass;
+import com.springboot.config.EnableMyConfigurationProperties;
 import com.springboot.config.MyAutoConfiguration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
@@ -15,6 +16,7 @@ import org.springframework.util.ClassUtils;
 @MyAutoConfiguration
 //@Conditional(TomcatWebServerConfig.TomcatCondition.class)
 @ConditionalMyOnClass("org.apache.catalina.startup.Tomcat")
+@Import(ServerProperties.class)
 public class TomcatWebServerConfig {
     //bean class field 생성 후 property의 값을 주입
     // @Value를 사용시 같은 이름의 property로 대체
@@ -28,6 +30,7 @@ public class TomcatWebServerConfig {
 
     @Bean("tomcatWebServerFactory") // User 구성 정보에서 제외필요. 패키지를 옮기면 ComponentScan 대상 제외됨
     @ConditionalOnMissingBean // Configuration class level 라이브러리 포함여부 체크 후 Bean level에서 같은 타입의 bean을 구성정보로 만들었는지 체크 후 없을경우 생성
+    @EnableMyConfigurationProperties(ServerProperties.class) // spring boot에선 Import 대신 목적으로 refactoring
     public ServletWebServerFactory servletWebServerFactory(ServerProperties properties/*Environment env*/) {
         //return new TomcatServletWebServerFactory();
         TomcatServletWebServerFactory factory = new TomcatServletWebServerFactory();
