@@ -1,13 +1,35 @@
 package com.springboot.analysis;
 
 import com.springboot.config.MySpringBootApplication;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.env.Environment;
 
 //@SpringBootApplication
 //@Configuration // Spring Container가 Bean 구성정보를 가지고 있는 Class임을 인식하도록 @Bean Factory Method 사용 시 Class level에 붙여줘야함
 //@ComponentScan // Application Context가 이 클래스 부터 하위 패키지의 모든 Component를 찾아서 Bean으로 등록, 의존 Object도 찾아서 생성자 파라미터로 제공, Component 붙은 클래스 모두 체크해야하는 번거로움
 @MySpringBootApplication // application 구성정보의 시작점
 public class AnalysisApplication {
+
+    // 스프링 부트 초기화 작업, 확인 작업
+    @Bean
+    ApplicationRunner applicationRunner(Environment env) {
+        // 단일 method 람다로 변경
+        // application properties 보다 환경변수가 우선
+        return args -> {
+            String name = env.getProperty("my.name");
+            System.out.println("my.name: " + name);
+        };
+        /*return new ApplicationRunner() {
+            @Override
+            public void run(ApplicationArguments args) throws Exception {
+
+            }
+        }*/
+    }
+
     // Spring Bean이 다른 Bean을 의존(사용) 하고 있다면 Spring Container에 구성 정보로 제공해줘야함
     // - 외부 설정파일 이용 (과거의 방식)
     // - Factory Method 이용해서 Bean 생성 및 의존관계 주입 (Java code가 설정 정보보다 간결하고 이해하기 쉽다)
